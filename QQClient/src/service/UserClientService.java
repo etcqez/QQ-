@@ -1,4 +1,4 @@
-package qqclient.service;
+package service;
 
 import qqcommon.Message;
 import qqcommon.MessageType;

@@ -9,12 +9,15 @@ import java.util.Iterator;
 public class ManagerClientThreads {
     private static HashMap<String, ServerConnectClientThread> hashMap = new HashMap<>();
 
+    public static HashMap<String, ServerConnectClientThread> getHashMap() {
+        return hashMap;
+    }
 
     public static void addClientConnectServerThread(String userId, ServerConnectClientThread serverConnectClientThread) {
         hashMap.put(userId, serverConnectClientThread);
     }
 
-    public static ServerConnectClientThread getClientConnectServerThread(String userId) {
+    public static ServerConnectClientThread getServerConnectClientThread(String userId) {
         return hashMap.get(userId);
     }
 

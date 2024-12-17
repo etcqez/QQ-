@@ -8,6 +8,45 @@ public class Message implements Serializable {
     private String getter;
     private String content;
     private String mesType;
+    //和文件有关的成员
+    private byte[] fileBytes;
+    private int fileLen = 0;
+    //将文件传输到哪里
+    private String dest;
+    //源文件路径
+    private String src;
+
+    public byte[] getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(byte[] fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
+    public int getFileLen() {
+        return fileLen;
+    }
+
+    public void setFileLen(int fileLen) {
+        this.fileLen = fileLen;
+    }
+
+    public String getDest() {
+        return dest;
+    }
+
+    public void setDest(String dest) {
+        this.dest = dest;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
+    }
 
     public String getMesType() {
         return mesType;

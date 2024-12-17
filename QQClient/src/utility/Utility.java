@@ -1,4 +1,4 @@
-package qqclient.utility;
+package utility;
 
 /**
  工具类的作用:

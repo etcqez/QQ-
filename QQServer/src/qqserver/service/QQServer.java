@@ -51,6 +51,8 @@ public class QQServer {
     public QQServer() {
         try {
             System.out.println("服务器在9999端口监听");
+            //启动推送新闻的线程
+            new Thread(new SendNewsToAllService()).start();
             serverSocket = new ServerSocket(9999);
 
             while (true) {

@@ -1,7 +1,9 @@
 package qqclient.view;
 
-import qqclient.service.UserClientService;
-import qqclient.utility.Utility;
+import service.FileClientService;
+import service.MessageClientService;
+import service.UserClientService;
+import utility.Utility;
 
 import java.io.IOException;
 
@@ -11,7 +13,12 @@ public class QQView {
     private boolean loop = true;
     //接收用户的键盘输入
     private String key = "";
+    //登录，退出
     private UserClientService userClientService = new UserClientService();
+    //私聊，群聊
+    private MessageClientService messageClientService = new MessageClientService();
+    //传输文件
+    private FileClientService fileClientService = new FileClientService();
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         new QQView().mainMenu();
@@ -20,8 +27,6 @@ public class QQView {
 
     /**
      * 登录 -> 验证(属性：用户客户端服务 -> 发送user对象 -> 读取message)
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
     private void mainMenu() throws IOException, ClassNotFoundException {
         while (loop) {
@@ -39,7 +44,7 @@ public class QQView {
                     System.out.println("请输入密码：");
                     String pwd = Utility.readString(50);
                     //需要到服务端验证用户是否合法
-                    if (userClientService.checkUser(userid,pwd)) {
+                    if (userClientService.checkUser(userid, pwd)) {
                         System.out.println("==============欢迎用户 " + userid + " 登录==============");
                         //进入到二级菜单
                         while (loop) {
@@ -56,13 +61,25 @@ public class QQView {
                                     userClientService.onlineFrientList();
                                     break;
                                 case "2":
-                                    System.out.println("群发消息");
+                                    System.out.println("请输入想对大家说的话");
+                                    String s = Utility.readString(100);
+                                    messageClientService.sendMessageToAll(s, userid);
                                     break;
                                 case "3":
-                                    System.out.println("私聊消息");
+                                    System.out.println("请输入想聊天的用户号(在线)：");
+                                    String getterId = Utility.readString(50);
+                                    System.out.println("请输入想说的话: ");
+                                    String content = Utility.readString(100);
+                                    messageClientService.sendMessageToOne(content, userid, getterId);
                                     break;
                                 case "4":
-                                    System.out.println("发送文件");
+                                    System.out.print("请输入你想把文件发送给的用户(在线用户)");
+                                    getterId = Utility.readString(50);
+                                    System.out.print("请输入发送文件的路径(绝对路径)");
+                                    String src = Utility.readString(100);
+                                    System.out.print("请输入文件发送到对应路径");
+                                    String dest = Utility.readString(100);
+                                    fileClientService.sendFileToOne(src, dest, userid, getterId);
                                     break;
                                 case "9":
                                     userClientService.logout();
